@@ -36,6 +36,8 @@ gem 'hirb-unicode', :require => false
 
 gem 'rest-client'
 gem 'httpclient'
+
+gem 'crawler_rocks'
 # Use Unicorn as the app server
 # gem 'unicorn'
 # Use Capistrano for deployment
