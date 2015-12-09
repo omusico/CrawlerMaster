@@ -1,9 +1,11 @@
 module CourseCrawler
-  def say_yes
-    classes = Crawler.constants
-
-    # Crawler.const_get classes.first
+  def crawler_list
+    Crawler.constants
   end
 
-  module_function :say_yes
+  def get_crawler sym
+    Crawler.const_get sym
+  end
+
+  module_function :crawler_list, :get_crawler
 end

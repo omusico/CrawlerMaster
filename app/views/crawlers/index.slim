@@ -1,0 +1,5 @@
+ul
+  - @crawler_list.each do |class_sym|
+    - short_name = class_sym.to_s.match(/(.+?)CourseCrawler/)[1]
+    li
+      = link_to class_sym, crawler_path(short_name)

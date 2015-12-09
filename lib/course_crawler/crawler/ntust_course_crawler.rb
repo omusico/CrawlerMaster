@@ -1,4 +1,6 @@
 require 'rest-client'
+require 'thwait'
+require 'thread'
 
 module CourseCrawler::Crawler
   class NtustCourseCrawler < CourseCrawler::Base
@@ -75,7 +77,7 @@ module CourseCrawler::Crawler
       "CT" => "營建工程系",
       "GX" => "綠能產業機電工程學士學位學程",
       "ME" => "機械工程系",
-      "MS" => "材料科技研究所",
+      # "MS" => "材料科技研究所",
       "RD" => "高階科技研發碩士學位學程",
       "RS" => "跨系所學程",
       "TV" => "工程技術研究所技職專業發展學程",
