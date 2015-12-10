@@ -1,19 +1,38 @@
 CrawlerMaster
 =============
 
-你的爬蟲大統領（之類der）
+你的爬蟲大統領（or something）
 
 -----------------
 
-## Draft
-
-以下列出想實作的功能
+## TODOs
 
 * index => 列出所有的 crawlers
-  * endpoint: /crawlers
-* show => 顯示單一爬蟲的資訊 name / crawling status
-  * endpoint: /crawlers/ntust, /crawler/{school name}
-* setting => 設定單一爬蟲的 api secrets / retry interval / scheduling
-  * endpoint: /crawlers/{school name}/setting
+  - [*] endpoint: /crawlers
+  - [ ] show last_run_at
+  - [x] show running workers in queue (Sidekiq::Queue find class name)
+  - [ ] show how many courses each crawler had done
 
-之前 sync 到 Core 的方式是邊爬邊上傳，這次為了資料的完整正確性（不要只給我更新到一半就掛掉需要重來），sync to Colorgy Core 的部分會改在檢查資料完整後才進行
+* show => 顯示單一爬蟲的資訊 name / crawling status
+  - [*] endpoint: /crawlers/ntust, /crawler/{school name}
+  - [ ] alias as "dashboard" endpoint :p
+  - [ ] track each worker job progress and status
+  - [ ] Start crawler anytime => track job ids
+  - [ ] ScheduledSet / RetrySet / DeadSet status (filtered by class name)
+  - [ ] Limiting queueing crawler (eg. each class for 5 instances)
+
+* setting => 設定單一爬蟲的 api secrets / retry interval / scheduling
+  - [ ] endpoint: /crawlers/{school name}/setting
+  - [ ] Schedule crawler (whenever, .etc)
+
+* Course Model
+    - [ ] Copy and Paste from Colorgy/Core :p
+    - [ ] Check data integrity (no blank class name / no blank class period data / no invalid period data......)
+    - [ ] Check course_code
+    - [ ] Sync data to Core
+
+* 後期調教
+    - [ ] Redis Namespace
+    - [ ] 
+
+* 有閒套個 AdminLTE 吧 ww

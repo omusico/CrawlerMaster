@@ -1,5 +1,22 @@
-ul
-  - @crawler_list.each do |class_sym|
-    - short_name = class_sym.to_s.match(/(.+?)CourseCrawler/)[1]
-    li
-      = link_to class_sym, crawler_path(short_name)
+= render partial: 'partials/navbar'
+
+.col-lg-8.col-lg-offset-2.col-md-10.col-md-offset-1.col-s-12
+  .table-responsive
+    table.table
+
+    table.table.table-hover
+      tr
+        th #
+        th class
+        th workers
+        th queueing
+        th last_run_at
+
+      - @crawler_list.each_with_index do |class_sym, index|
+        tr
+          td= index+1
+          - short_name = class_sym.to_s.match(/(.+?)CourseCrawler/)[1]
+          td= link_to class_sym, crawler_path(short_name)
+          td= Sidekiq::Workers.new.select{|process_id, thread_id, work| work["payload"]["args"][0] == class_sym.to_s }.count
+          td= Sidekiq::Queue.new.select{|queue| queue.item["args"][0] == class_sym.to_s }.count
+          td
