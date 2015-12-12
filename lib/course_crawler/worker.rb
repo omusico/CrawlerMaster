@@ -12,9 +12,10 @@
 module CourseCrawler
   class Worker
     include Sidekiq::Worker
+    sidekiq_options :retry => 1
 
     def perform *args
-      klass = Crawler.const_get args[0] # may through
+      klass = Crawlers.const_get args[0] # may through
 
       @klass_instance = klass.new(*args[1..-1])
       @klass_instance.worker = self

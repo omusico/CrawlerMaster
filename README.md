@@ -22,17 +22,27 @@ CrawlerMaster
   - [ ] Limiting queueing crawler (eg. each class for 5 instances)
 
 * setting => 設定單一爬蟲的 api secrets / retry interval / scheduling
-  - [ ] endpoint: /crawlers/{school name}/setting
+  - [ ] endpoint: /crawlers/{school name}/setting (edit page)
+  - [ ] understanding sidekiq scheduler usage and parameters
   - [ ] Schedule crawler (whenever, .etc)
+  - [ ] initializer setup existing scheduling behavior
 
 * Course Model
-    - [ ] Copy and Paste from Colorgy/Core :p
-    - [ ] Check data integrity (no blank class name / no blank class period data / no invalid period data......)
-    - [ ] Check course_code
-    - [ ] Sync data to Core
+  - [ ] Copy and Paste from Colorgy/Core :p
+  - [ ] Check data integrity (no blank class name / no blank class period data / no invalid period data......)
+  - [ ] Check course_code
+  - [ ] Sync data to Core
 
 * 後期調教
-    - [ ] Redis Namespace
-    - [ ] 
+  - [ ] Redis Namespace
+  - [*] queue namespace(Sidekiq::Client push specific queue name)
+  - [ ] Limiting retry count
+  - [ ] limit queue number
+  - [*] we can't kill workers orz
+  - [ ] sidekiq-limit_fetch set limit
+
+```ruby
+Sidekiq::Client.push('queue' => 'NtustCourseCrawler', 'class' => CourseCrawler::Worker, 'args' => ['NtustCourseCrawler'])
+```
 
 * 有閒套個 AdminLTE 吧 ww

@@ -2,7 +2,7 @@ require 'rest-client'
 require 'thwait'
 require 'thread'
 
-module CourseCrawler::Crawler
+module CourseCrawler::Crawlers
   class NtustCourseCrawler < CourseCrawler::Base
     attr_reader :semester_list, :courses_list, :query_url, :result_url
 

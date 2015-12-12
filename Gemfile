@@ -22,6 +22,7 @@ gem 'bootstrap-sass', '~> 3.3.6'
 
 gem "compass-rails", github: "Compass/compass-rails", branch: "master"
 
+
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
@@ -45,6 +46,8 @@ gem 'httpclient'
 gem 'crawler_rocks'
 
 gem 'sidekiq', '~> 4.0'
+gem 'rufus-scheduler', '~> 3.1'
+gem 'sidekiq-limit_fetch'
 # Use Unicorn as the app server
 # gem 'unicorn'
 # Use Capistrano for deployment

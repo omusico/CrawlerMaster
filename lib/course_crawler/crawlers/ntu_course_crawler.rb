@@ -1,4 +1,4 @@
-module CourseCrawler::Crawler
+module CourseCrawler::Crawlers
   class NtuCourseCrawler < CourseCrawler::Base
 
     class String
