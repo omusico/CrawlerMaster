@@ -11,19 +11,33 @@
             = fv
 
       h3= @crawler.name
-      .panel
-        .panel-body
-          h4 Schedule Setting
-          = render partial: 'partials/setting_form', locals: { crawler: @crawler }
+
+
+      form action=run_crawler_path(@crawler.organization_code) method="post"
+        = hidden_field_tag :authenticity_token, form_authenticity_token
+        .form-group
+          button.btn.btn-primary type="submit" Run
+
+
+      .panel-group#crawler-statistic
+        .panel.panel-default
+          .panel-heading#workers-setting role="tab"
+            h3.panel-title
+              a role="button" data-toggle="collapse" data-parent="#crawler-statistic" href="#workers-collapse1" aria-expanded="true" aria-controls="workers-collapse1"
+                i.fa.fa-angle-down
+                |  Schedule Setting
+          #workers-collapse1.panel-collapse.collapse role="tabpanel" aria-labelledby="workers-setting"
+            .panel-body
+              = render partial: 'partials/setting_form', locals: { crawler: @crawler }
 
       .panel-group#crawler-statistic
         .panel.panel-default
           .panel-heading#workers-heading role="tab"
             h3.panel-title
-              a role="button" data-toggle="collapse" data-parent="#crawler-statistic" href="#workers-collapse" aria-expanded="true" aria-controls="workers-collapse"
+              a role="button" data-toggle="collapse" data-parent="#crawler-statistic" href="#workers-collapse2" aria-expanded="true" aria-controls="workers-collapse2"
                 i.fa.fa-angle-down
                 |  Crawler Workers
-          #workers-collapse.panel-collapse.collapse role="tabpanel" aria-labelledby="workers-heading"
+          #workers-collapse2.panel-collapse.collapse role="tabpanel" aria-labelledby="workers-heading"
             .panel-body
               .table-responsive
                 table.table.table-hover

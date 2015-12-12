@@ -1,6 +1,6 @@
 class CrawlersController < ApplicationController
   before_filter :authenticate_admin_user!
-  before_filter :find_crawler, only: [:show, :setting]
+  before_filter :find_crawler, only: [:show, :setting, :run]
 
   def index
     @crawler_list = CourseCrawler.crawler_list
@@ -17,6 +17,14 @@ class CrawlersController < ApplicationController
     @crawler.save!
 
     flash[:success] = "Schedule has been successfully updated"
+    redirect_to crawler_path(@crawler.organization_code)
+  end
+
+  def run
+    jobs = @crawler.run_up(year: params[:year], term: params[:term])
+
+    flash[:success] = "job_ids: #{jobs.map{|j| j && j.id}}"
+
     redirect_to crawler_path(@crawler.organization_code)
   end
 

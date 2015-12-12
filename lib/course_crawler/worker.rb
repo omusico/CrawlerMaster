@@ -17,7 +17,15 @@ module CourseCrawler
     def perform *args
       klass = Crawlers.const_get args[0] # may through
 
-      @klass_instance = klass.new(*args[1..-1])
+
+      @klass_instance =
+        klass.new(
+          year: args[1][:year],
+          term: args[1][:term],
+          update_progress: args[1][:update_progress],
+          after_each: args[1][:after_each]
+        )
+
       @klass_instance.worker = self
       @klass_instance.courses # default course crawler method
 

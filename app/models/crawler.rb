@@ -10,6 +10,27 @@ class Crawler < ActiveRecord::Base
     CourseCrawler.get_crawler self.name
   end
 
+  def short_org
+    self.organization_code.downcase
+  end
+
+  def run_up(args={})
+    SCHEDULE_KEYS.map do |k|
+      time_str = self.schedule[k]
+      next if time_str.empty?
+      Rufus::Scheduler.s.send(:"schedule_#{k}", time_str) do
+        Sidekiq::Client.push(
+          'queue' => self.name,
+          'class' => CourseCrawler::Worker,
+          'args' => [
+            self.name,
+            args
+          ]
+        )
+      end
+    end
+  end
+
   private
 
   def setup

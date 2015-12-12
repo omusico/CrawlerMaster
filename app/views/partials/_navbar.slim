@@ -12,6 +12,8 @@ nav.navbar.navbar-default
     .collapse.navbar-collapse#main-navbar
       ul.nav.navbar-nav
         li= link_to('Crawlers', crawlers_path)
+
+      ul.nav.navbar-nav.navbar-right
         - if current_admin_user
           li= link_to('Logout', destroy_admin_user_session_path, method: :delete)
         - else

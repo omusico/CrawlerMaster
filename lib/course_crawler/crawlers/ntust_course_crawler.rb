@@ -103,8 +103,8 @@ module CourseCrawler::Crawlers
     def initialize(year: current_year, term: current_term, update_progress: nil, after_each: nil)
       @query_url = "http://140.118.31.215/querycourse/ChCourseQuery/QueryCondition.aspx"
       @result_url = "http://140.118.31.215/querycourse/ChCourseQuery/QueryResult.aspx"
-      @year = year
-      @term = term
+      @year = year || current_year
+      @term = term || current_term
       @update_progress_proc = update_progress
       @after_each_proc = after_each
     end

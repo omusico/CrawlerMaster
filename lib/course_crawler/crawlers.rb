@@ -28,7 +28,7 @@ module CourseCrawler::Crawlers
     end
 
     def self.find_queued_jobs name
-      Sidekiq::Queue.new.select{|queue| queue.item["args"][0] == name }
+      Sidekiq::Queue.new("name").select{|queue| queue.item["args"][0] == name }
     end
 
 end
