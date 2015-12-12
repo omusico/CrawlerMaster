@@ -12,7 +12,6 @@
 
       h3= @crawler.name
 
-
       form action=run_crawler_path(@crawler.organization_code) method="post"
         = hidden_field_tag :authenticity_token, form_authenticity_token
         .form-group
@@ -25,7 +24,7 @@
             h3.panel-title
               a role="button" data-toggle="collapse" data-parent="#crawler-statistic" href="#workers-collapse1" aria-expanded="true" aria-controls="workers-collapse1"
                 i.fa.fa-angle-down
-                |  Schedule Setting
+                |  Settings
           #workers-collapse1.panel-collapse.collapse role="tabpanel" aria-labelledby="workers-setting"
             .panel-body
               = render partial: 'partials/setting_form', locals: { crawler: @crawler }

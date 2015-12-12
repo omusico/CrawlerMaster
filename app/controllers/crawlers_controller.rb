@@ -14,9 +14,13 @@ class CrawlersController < ApplicationController
       @crawler.schedule[hkey] = value
     end
 
+    Crawler::API_MANAGEMENT_KEYS.each do |hkey|
+      @crawler.send("#{hkey}=", params[hkey])
+    end
+
     @crawler.save!
 
-    flash[:success] = "Schedule has been successfully updated"
+    flash[:success] = "Settings has been successfully updated"
     redirect_to crawler_path(@crawler.organization_code)
   end
 

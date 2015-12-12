@@ -9,5 +9,14 @@ form.form-horizontal action=setting_crawler_path(crawler.organization_code) meth
         .col-l-8.col-sm-8.col-s-10.col-s-offset-1
           input.form-control type="text" name=input_name id=input_name value=crawler.schedule[sym]
 
+  - Crawler::API_MANAGEMENT_KEYS.each do |sym|
+    .form-group
+      .row
+        label.control-label.col-sm-2.col-s-12.col-l-2 for=sym
+          = sym.to_s.split('_').map(&:capitalize).join(' ')
+        .col-l-8.col-sm-8.col-s-10.col-s-offset-1
+          - input_type = sym.to_s.include?('key') ? "password" : "text"
+          input.form-control name=sym id=sym value=crawler.send(sym) type=input_type
+
   .col-md-offset-9.col-md-3
     button.btn.btn-default type="submit" Update

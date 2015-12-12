@@ -5,6 +5,7 @@ class Crawler < ActiveRecord::Base
   store :setting, accessors: [ :schedule ]
 
   SCHEDULE_KEYS = [:at, :in, :every, :cron]
+  API_MANAGEMENT_KEYS = [:data_management_api_endpoint, :data_management_api_key, :data_name]
 
   def klass
     CourseCrawler.get_crawler self.name
