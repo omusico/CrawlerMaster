@@ -8,24 +8,24 @@ CrawlerMaster
 ## TODOs
 
 * index => 列出所有的 crawlers
-  - [*] endpoint: /crawlers
+  - [x] endpoint: /crawlers
   - [ ] show last_run_at
   - [x] show running workers in queue (Sidekiq::Queue find class name)
   - [ ] show how many courses each crawler had done
 
 * show => 顯示單一爬蟲的資訊 name / crawling status
-  - [*] endpoint: /crawlers/ntust, /crawler/{school name}
+  - [x] endpoint: /crawlers/ntust, /crawler/{school name}
   - [ ] track each worker job progress and status
   - [ ] Start crawler anytime => track job ids => maybe save it to another model?
   - [ ] ScheduledSet / RetrySet / DeadSet status (filtered by class name)
   - [ ] Limiting queueing crawler (eg. each class for 5 instances)
 
 * setting => 設定單一爬蟲的 api secrets / retry interval / scheduling
-  - [*] endpoint: /crawlers/{school name}/setting (ediqt page)
-  - [*] understanding sidekiq scheduler usage and parameters
-  - [*] Schedule crawler (whenever, .etc)
+  - [x] endpoint: /crawlers/{school name}/setting (ediqt page)
+  - [x] understanding sidekiq scheduler usage and parameters
+  - [x] Schedule crawler (whenever, .etc)
 ```
-    I use rufus-scheduler eventually
+  I use rufus-scheduler eventually
 ```
   - [ ] initializer setup existing scheduling behavior
 
@@ -37,10 +37,10 @@ CrawlerMaster
 
 * 後期調教
   - [ ] Redis Namespace
-  - [*] queue namespace(Sidekiq::Client push specific queue name)
+  - [x] queue namespace(Sidekiq::Client push specific queue name)
   - [ ] Limiting retry count
   - [ ] limit queue number
-  - [*] we can't kill workers orz
+  - [x] we can't kill workers orz
   - [ ] sidekiq-limit_fetch set limit
   - [ ] Check sidekiq proccess
 
