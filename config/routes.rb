@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   post 'crawlers/:id/run' => 'crawlers#run', as: :run_crawler
   get 'crawlers' => 'crawlers#index', as: :crawlers
 
+  delete 'crawlers/:id/jobs/:jid' => 'crawlers#unschedule_job', as: :unschedule_job
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

@@ -17,6 +17,27 @@
           span
             button.btn.btn-default style="margin: 0 1em;" type="submit" Run
 
+      .table-responsive
+        table.table.table-hover
+          tr
+            th id
+            th jid
+            th original
+            th last_time
+            th scheduled_at
+            th action
+
+          - @crawler.rufus_jobs.each do |rfj|
+            - next if rfj.job_instance.nil?
+            tr
+              td= rfj.id
+              td= rfj.jid
+              td= rfj.job_instance.original
+              td= rfj.job_instance.last_time
+              td= rfj.job_instance.scheduled_at
+              td
+                = link_to 'Unschedule', unschedule_job_path(@crawler.organization_code, rfj.id), method: :delete, :class => 'btn btn-mini btn-danger'
+
       .panel-group#crawler-statistic
         .panel.panel-default
           .panel-heading#workers-setting role="tab"

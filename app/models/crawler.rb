@@ -1,6 +1,7 @@
 class Crawler < ActiveRecord::Base
 
   before_create :setup
+  has_many :rufus_jobs
 
   store :setting, accessors: [ :schedule ]
 
@@ -19,7 +20,8 @@ class Crawler < ActiveRecord::Base
     SCHEDULE_KEYS.map do |k|
       time_str = self.schedule[k]
       next if time_str.empty?
-      Rufus::Scheduler.s.send(:"schedule_#{k}", time_str) do
+
+      j = Rufus::Scheduler.s.send(:"schedule_#{k}", time_str) do
         Sidekiq::Client.push(
           'queue' => self.name,
           'class' => CourseCrawler::Worker,
@@ -29,6 +31,9 @@ class Crawler < ActiveRecord::Base
           ]
         )
       end
+      self.rufus_jobs.create(jid: j.id, type: k.to_s)
+
+      j
     end
   end
 

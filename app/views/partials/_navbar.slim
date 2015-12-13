@@ -17,4 +17,4 @@ nav.navbar.navbar-default
         - if current_admin_user
           li= link_to('Logout', destroy_admin_user_session_path, method: :delete)
         - else
-          li= link_to('Login', new_admin_user_session_path, method: :delete)
+          li= link_to('Login', new_admin_user_session_path)

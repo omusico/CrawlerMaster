@@ -16,9 +16,11 @@ CrawlerMaster
 * show => 顯示單一爬蟲的資訊 name / crawling status
   - [x] endpoint: /crawlers/ntust, /crawler/{school name}
   - [ ] track each worker job progress and status
-  - [ ] Start crawler anytime => track job ids => maybe save it to another model?
+  - [x] Start crawler anytime => track job ids => maybe save it to another model?
   - [ ] ScheduledSet / RetrySet / DeadSet status (filtered by class name)
   - [ ] Limiting queueing crawler (eg. each class for 5 instances)
+  - [x] Manage/Track Rufus Scheduled Job
+  - [x] Unschedule EveryJob / CronJob(EveryJob first)
 
 * setting => 設定單一爬蟲的 api secrets / retry interval / scheduling
   - [x] endpoint: /crawlers/{school name}/setting (ediqt page)
@@ -38,7 +40,7 @@ CrawlerMaster
 * 後期調教
   - [ ] Redis Namespace
   - [x] queue namespace(Sidekiq::Client push specific queue name)
-  - [ ] Limiting retry count
+  - [x] Limiting retry count
   - [ ] limit queue number
   - [x] we can't kill workers orz
   - [ ] sidekiq-limit_fetch set limit
