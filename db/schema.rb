@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151213074443) do
+ActiveRecord::Schema.define(version: 20151214023049) do
 
   create_table "admin_users", force: :cascade do |t|
     t.string   "username",               default: ""
@@ -32,6 +32,55 @@ ActiveRecord::Schema.define(version: 20151213074443) do
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   add_index "admin_users", ["username"], name: "index_admin_users_on_username", unique: true
+
+  create_table "courses", force: :cascade do |t|
+    t.string   "organization_code", null: false
+    t.string   "department_code"
+    t.string   "lecturer_name",     null: false
+    t.integer  "year",              null: false
+    t.integer  "term",              null: false
+    t.string   "name",              null: false
+    t.string   "code",              null: false
+    t.string   "general_code",      null: false
+    t.string   "ucode"
+    t.boolean  "required"
+    t.integer  "credits"
+    t.string   "url"
+    t.string   "name_en"
+    t.boolean  "full_semester"
+    t.integer  "day_1"
+    t.integer  "day_2"
+    t.integer  "day_3"
+    t.integer  "day_4"
+    t.integer  "day_5"
+    t.integer  "day_6"
+    t.integer  "day_7"
+    t.integer  "day_8"
+    t.integer  "day_9"
+    t.integer  "period_1"
+    t.integer  "period_2"
+    t.integer  "period_3"
+    t.integer  "period_4"
+    t.integer  "period_5"
+    t.integer  "period_6"
+    t.integer  "period_7"
+    t.integer  "period_8"
+    t.integer  "period_9"
+    t.string   "location_1"
+    t.string   "location_2"
+    t.string   "location_3"
+    t.string   "location_4"
+    t.string   "location_5"
+    t.string   "location_6"
+    t.string   "location_7"
+    t.string   "location_8"
+    t.string   "location_9"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "courses", ["general_code"], name: "index_courses_on_general_code"
+  add_index "courses", ["ucode"], name: "index_courses_on_ucode"
 
   create_table "crawlers", force: :cascade do |t|
     t.string   "name"
