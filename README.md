@@ -32,7 +32,7 @@ CrawlerMaster
   - [ ] initializer setup existing scheduling behavior
 
 * Course Model
-  - [ ] Copy and Paste from Colorgy/Core :p
+  - [*] Copy and Paste from Colorgy/Book :p
   - [ ] Check data integrity (no blank class name / no blank class period data / no invalid period data......)
   - [ ] Check course_code
   - [ ] Sync data to Core

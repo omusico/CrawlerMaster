@@ -1,3 +1,7 @@
+##
+# A few general crawler methods
+#
+
 module CourseCrawler
   class Base
     include Mixin

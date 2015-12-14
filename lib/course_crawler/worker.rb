@@ -17,7 +17,6 @@ module CourseCrawler
     def perform *args
       klass = Crawlers.const_get args[0] # may through
 
-
       @klass_instance =
         klass.new(
           year: args[1][:year],
@@ -27,10 +26,33 @@ module CourseCrawler
         )
 
       @klass_instance.worker = self
-      @klass_instance.courses # default course crawler method
+      courses = @klass_instance.courses # default course crawler method
 
-      # Data handling here
-      # ...
+      # Save course datas into database
+      org = args[0].match(/(.+?)CourseCrawler/)[1].upcase
+      inserted_column_names = [ :ucode ] + Course.inserted_column_names + [ :created_at, :updated_at ]
+
+      courses_inserts = courses.map do |c|
+        c[:name] && c[:name].gsub!("'", "''")
+        c[:lecturer_name] && c[:lecturer_name].gsub!("'", "''")
+        c[:required] = c[:required].nil? ? "NULL" : c[:required]
+
+        "( '#{org}-#{c[:code]}', #{
+          Course.inserted_column_names.map do |k|
+            c[k].nil? ? "NULL" : "'#{c[k]}'"
+          end.join(', ')
+        }, '#{Time.now}', '#{Time.now}' )"
+      end
+
+      sql = <<-eof
+        INSERT INTO courses (#{inserted_column_names.join(', ')})
+        VALUES #{courses_inserts.join(', ')}
+      eof
+
+      ActiveRecord::Base.transaction {
+        Course.where(organization_code: org).destroy_all
+        ActiveRecord::Base.connection.execute(sql)
+      }
     end
 
   end
