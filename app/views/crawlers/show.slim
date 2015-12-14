@@ -3,6 +3,7 @@
 .container
   .row
     .col-lg-8.col-lg-offset-2.col-md-10.col-md-offset-1.col-s-12
+      / flash messages
       - if flash.keys.any?
         - flash.each do |fk, fv|
           .alert.alert-dismissible class="alert-#{fk}" role="alert"
@@ -10,6 +11,7 @@
               span aria-hidden="true" &times;
             = fv
 
+      / Run button
       form action=run_crawler_path(@crawler.organization_code) method="post"
         = hidden_field_tag :authenticity_token, form_authenticity_token
         h3
@@ -17,6 +19,21 @@
           span
             button.btn.btn-default style="margin: 0 1em;" type="submit" Run
 
+      h4 Status
+      table.table
+        tr
+          th Resource Url
+          - resource_url = courses_path(organization_code: @crawler.organization_code)
+          td= link_to resource_url, resource_url
+        tr
+          th Resource Count
+          td= Course.where(organization_code: @crawler.organization_code).count
+        tr
+          th Last Update at
+          td= Course.last.updated_at
+
+      / Rufus Jobs Table
+      h4 Rufus Jobs
       .table-responsive
         table.table.table-hover
           tr
@@ -38,6 +55,7 @@
               td
                 = link_to 'Unschedule', unschedule_job_path(@crawler.organization_code, rfj.id), method: :delete, :class => 'btn btn-mini btn-danger'
 
+      / Setting form
       .panel-group#crawler-statistic
         .panel.panel-default
           .panel-heading#workers-setting role="tab"
@@ -49,6 +67,7 @@
             .panel-body
               = render partial: 'partials/setting_form', locals: { crawler: @crawler }
 
+      / Workers Table
       .panel-group#crawler-statistic
         .panel.panel-default
           .panel-heading#workers-heading role="tab"

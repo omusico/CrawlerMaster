@@ -31,7 +31,7 @@ class Crawler < ActiveRecord::Base
           ]
         )
       end
-      self.rufus_jobs.create(jid: j.id, type: k.to_s)
+      self.rufus_jobs.create(jid: j.id, type: k.to_s, original: j.original)
 
       j
     end
