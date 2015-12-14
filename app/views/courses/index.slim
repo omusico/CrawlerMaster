@@ -3,6 +3,8 @@
 - table_columns = ([:id, :year, :term, :name, :code, :general_code, :required, :credits] + Course.inserted_column_names).uniq
 .container
   .col-lg-12.col-md-12
+    p= "Total Courses Count: #{@courses.total_count}"
+
     = paginate @courses
     .table-responsive
       table.table.table-hover.table-striped.table-bordered

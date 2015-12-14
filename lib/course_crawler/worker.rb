@@ -30,15 +30,17 @@ module CourseCrawler
 
       # Save course datas into database
       org = args[0].match(/(.+?)CourseCrawler/)[1].upcase
-      inserted_column_names = [ :ucode ] + Course.inserted_column_names + [ :created_at, :updated_at ]
+      inserted_column_names = [:ucode] + Course.inserted_column_names + [ :created_at, :updated_at ]
 
       courses_inserts = courses.map do |c|
         c[:name] && c[:name].gsub!("'", "''")
         c[:lecturer_name] && c[:lecturer_name].gsub!("'", "''")
+        c[:lecturer_name] = c[:lecturer_name].nil? ? "" : c[:lecturer_name]
         c[:required] = c[:required].nil? ? "NULL" : c[:required]
 
-        "( '#{org}-#{c[:code]}', #{
-          Course.inserted_column_names.map do |k|
+        # 去頭去尾
+        "( '#{org}-#{c[:code]}', '#{org}', #{
+          inserted_column_names[2..-3].map do |k|
             c[k].nil? ? "NULL" : "'#{c[k]}'"
           end.join(', ')
         }, '#{Time.now}', '#{Time.now}' )"

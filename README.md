@@ -1,7 +1,7 @@
 CrawlerMaster
 =============
 
-你的爬蟲大統領（or something）
+你的爬蟲大統領
 
 -----------------
 
@@ -11,7 +11,7 @@ CrawlerMaster
   - [x] endpoint: /crawlers
   - [ ] show last_run_at
   - [x] show running workers in queue (Sidekiq::Queue find class name)
-  - [ ] show how many courses each crawler had done
+  - [*] show how many courses each crawler had done
 
 * show => 顯示單一爬蟲的資訊 name / crawling status
   - [x] endpoint: /crawlers/ntust, /crawler/{school name}

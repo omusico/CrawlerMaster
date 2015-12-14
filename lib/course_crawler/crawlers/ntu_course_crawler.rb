@@ -1,12 +1,6 @@
 module CourseCrawler::Crawlers
   class NtuCourseCrawler < CourseCrawler::Base
 
-    class String
-      def power_strip
-        self.strip.gsub(/^[ |\s]*|[ |\s]*$/,'')
-      end
-    end
-
     include CrawlerRocks::DSL
 
     DAYS = {
@@ -113,21 +107,21 @@ module CourseCrawler::Crawlers
               end
             end
 
-            name = datas[4] && datas[4].text.power_strip
-            lecturer = datas[9] && datas[9].text.power_strip
-            department = datas[1] && datas[1].text.power_strip
+            name = datas[4] && power_strip(datas[4].text)
+            lecturer = datas[9] && power_strip(datas[9].text)
+            department = datas[1] && power_strip(datas[1].text)
             url = nil || datas[4] && !datas[4].css('a').empty? && URI.encode("#{@base_url}#{datas[4].css('a')[0][:href]}")
-            id = datas[6] && datas[6].text.power_strip.gsub(/\s/, '')
-            class_code= datas[3] && datas[3].text.power_strip
+            id = datas[6] && power_strip(datas[6].text).gsub(/\s/, '')
+            class_code= datas[3] && power_strip(datas[3].text)
             department_code = url ? Hash[URI.decode_www_form(URI.encode url)]["dpt_code"] : nil
-            number = datas[2] && datas[2].text.power_strip
+            number = datas[2] && power_strip(datas[2].text)
 
             code = [@year, @term, id, number, department_code, class_code].join('-')
 
             course = {
               year: @year,
               term: @term,
-              serial: datas[0] && datas[0].text.power_strip,
+              serial: datas[0] && power_strip(datas[0].text),
               department: department,
               department_code: department_code,
               number: number,
@@ -182,7 +176,9 @@ module CourseCrawler::Crawlers
 
           # @processed_page_count += 1
           done_page_count += 1
-          print "#{done_page_count}\n"
+          # print "#{done_page_count}\n"
+          set_progress "#{done_page_count} / #{pages_param.count}"
+          print "#{done_page_count} / #{pages_param.count}\n"
           # puts "processed_page_count: #{@processed_page_count} / #{@total_page_count}"
 
         end # Thread.new do
@@ -194,6 +190,10 @@ module CourseCrawler::Crawlers
       puts "done #{@courses.count} courses!"
       @courses
     end # def course
+
+    def power_strip str
+      str.strip.gsub(/^[ |\s]*|[ |\s]*$/,'')
+    end
 
   end
 end
