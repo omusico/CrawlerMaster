@@ -342,6 +342,8 @@ module CourseCrawler::Crawlers
           course_periods << PERIODS[tp[1]]
         end
 
+        next if course_code == '校隊'
+
         # hash 化 course
         course = {
           :name => course_name,
