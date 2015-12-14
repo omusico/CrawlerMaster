@@ -22,6 +22,7 @@ gem 'bootstrap-sass', '~> 3.3.6'
 
 gem "compass-rails", github: "Compass/compass-rails", branch: "master"
 
+gem 'kaminari'
 
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder

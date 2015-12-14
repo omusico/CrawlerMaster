@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'courses/index'
+
   devise_for :admin_users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
@@ -13,6 +15,8 @@ Rails.application.routes.draw do
   get 'crawlers' => 'crawlers#index', as: :crawlers
 
   delete 'crawlers/:id/jobs/:jid' => 'crawlers#unschedule_job', as: :unschedule_job
+
+  get 'courses' => 'courses#index', as: :courses
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
