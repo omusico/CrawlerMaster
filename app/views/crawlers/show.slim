@@ -30,7 +30,7 @@
           td= Course.where(organization_code: @crawler.organization_code).count
         tr
           th Last Update at
-          td= Course.last.updated_at
+          td= Course.last.nil? ? 'not available' : Course.last.updated_at
 
       / Rufus Jobs Table
       h4 Rufus Jobs
