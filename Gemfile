@@ -49,8 +49,9 @@ gem 'crawler_rocks'
 gem 'sidekiq', '~> 4.0'
 gem 'rufus-scheduler', '~> 3.1'
 gem 'sidekiq-limit_fetch'
+
 # Use Unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
