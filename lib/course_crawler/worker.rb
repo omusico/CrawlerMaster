@@ -15,7 +15,10 @@ module CourseCrawler
     sidekiq_options :retry => 1
 
     def perform *args
-      klass = Crawlers.const_get args[0] # may through
+      klass = Crawlers.const_get args[0]
+
+      org = args[0].match(/(.+?)CourseCrawler/)[1].upcase
+      crawler_model = Crawler.find_by(organization_code: org)
 
       @klass_instance =
         klass.new(
@@ -26,10 +29,9 @@ module CourseCrawler
         )
 
       @klass_instance.worker = self
-      courses = @klass_instance.courses # default course crawler method
+      courses = @klass_instance.courses
 
       # Save course datas into database
-      org = args[0].match(/(.+?)CourseCrawler/)[1].upcase
       inserted_column_names = [:ucode] + Course.inserted_column_names + [ :created_at, :updated_at ]
 
       courses_inserts = courses.map do |c|
@@ -51,12 +53,36 @@ module CourseCrawler
         VALUES #{courses_inserts.join(', ')}
       eof
 
-      ActiveRecord::Base.transaction {
-        Course.where(organization_code: org).destroy_all
-        ActiveRecord::Base.connection.execute(sql)
-      }
-    end
+      if crawler_model.save_to_db
+        ActiveRecord::Base.transaction {
+          Course.where(organization_code: org).destroy_all
+          ActiveRecord::Base.connection.execute(sql)
+        }
+      end
 
+      ## Sync to Core
+      # get crawler settings
+      api_put_columns = (Course.inserted_column_names + [ :created_at, :updated_at ])
+
+      http_client = HTTPClient.new
+
+      courses = Course.where(organization_code: org)
+      courses_count = courses.count
+
+      if crawler_model.sync
+        courses.find_in_batches(batch_size: 200) do |courses|
+          courses.map{|c| Hash[c.attributes.map{|k, v| [k.to_sym, v]}].slice(*api_put_columns) }.each_with_index do |course, index|
+
+            http_client.put("#{crawler_model.data_management_api_endpoint}/#{course[:code]}?key=#{crawler_model.data_management_api_key}",
+              { crawler_model.data_name => course }
+            )
+
+            @klass_instance.set_progress("syncing: #{index+1} / #{courses_count}")
+          end # end courses.each_with_index
+        end # end courses.find_in_batches
+      end # end if crwaler_model.sync
+
+    end
   end
 end
 

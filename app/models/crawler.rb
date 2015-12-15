@@ -7,6 +7,7 @@ class Crawler < ActiveRecord::Base
 
   SCHEDULE_KEYS = [:at, :in, :every, :cron]
   API_MANAGEMENT_KEYS = [:data_management_api_endpoint, :data_management_api_key, :data_name]
+  TEST_SETTING_KEYS = [ :save_to_db, :sync ]
 
   def klass
     CourseCrawler.get_crawler self.name

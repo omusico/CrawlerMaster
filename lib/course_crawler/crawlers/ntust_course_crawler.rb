@@ -189,7 +189,7 @@ module CourseCrawler::Crawlers
 
       # 跳過第一列，因為是 table header，何不用 th = =?
       @courses_list_trs.each_with_index do |row, index|
-        puts "Preparing course #{index + 1}/#{@courses_list_trs_count}..."
+        # puts "Preparing course #{index + 1}/#{@courses_list_trs_count}..."
 
         # 每一欄
         table_data = row.css('td')
@@ -342,7 +342,7 @@ module CourseCrawler::Crawlers
           course_periods << PERIODS[tp[1]]
         end
 
-        next if course_code == '校隊'
+        next if course_general_code.include? '校隊'
 
         # hash 化 course
         course = {

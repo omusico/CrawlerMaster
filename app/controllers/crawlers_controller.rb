@@ -18,6 +18,10 @@ class CrawlersController < ApplicationController
       @crawler.send("#{hkey}=", params[hkey])
     end
 
+    Crawler::TEST_SETTING_KEYS.each do |hkey|
+      @crawler.send("#{hkey}=", !params[hkey].nil?)
+    end
+
     @crawler.save!
 
     flash[:success] = "Settings has been successfully updated"

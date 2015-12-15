@@ -35,7 +35,7 @@ CrawlerMaster
   - [*] Copy and Paste from Colorgy/Book :p
   - [ ] Check data integrity (no blank class name / no blank class period data / no invalid period data......)
   - [ ] Check course_code
-  - [ ] Sync data to Core
+  - [*] Sync data to Core
 
 * 後期調教
   - [ ] Redis Namespace

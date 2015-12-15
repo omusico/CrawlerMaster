@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151214082007) do
+ActiveRecord::Schema.define(version: 20151215030747) do
 
   create_table "admin_users", force: :cascade do |t|
     t.string   "username",               default: ""
@@ -88,11 +88,13 @@ ActiveRecord::Schema.define(version: 20151214082007) do
     t.string   "class_name"
     t.string   "organization_code"
     t.string   "setting"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
     t.string   "data_management_api_endpoint"
     t.string   "data_management_api_key"
     t.string   "data_name"
+    t.boolean  "save_to_db",                   default: false
+    t.boolean  "sync",                         default: false
   end
 
   create_table "rufus_jobs", force: :cascade do |t|

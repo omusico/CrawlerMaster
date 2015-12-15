@@ -18,5 +18,26 @@ form.form-horizontal action=setting_crawler_path(crawler.organization_code) meth
           - input_type = sym.to_s.include?('key') ? "password" : "text"
           input.form-control name=sym id=sym value=crawler.send(sym) type=input_type
 
+  .form-group
+    .row
+      label.control-label.col-sm-2.col-s-12.col-l-2 for="save_to_db"
+        | Save to Database
+      .col-l-8.col-sm-8.col-s-10.col-s-offset-1
+        - opt = { "name" => "save_to_db" }
+        - opt.merge!( {checked: "checked"} ) if crawler.save_to_db
+        .checkbox
+          label= check_box nil, nil, opt, true, false
+
+  .form-group
+    .row
+      label.control-label.col-sm-2.col-s-12.col-l-2 for="sync"
+        | Sync to Core
+      .col-l-8.col-sm-8.col-s-10.col-s-offset-1
+        - opt = { "name" => "sync" }
+        - opt.merge!( {checked: "checked"} ) if crawler.sync
+        .checkbox
+          label= check_box nil, nil, opt, true, false
+
+
   .col-md-offset-9.col-md-3
     button.btn.btn-default type="submit" Update
