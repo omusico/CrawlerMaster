@@ -8,6 +8,18 @@ class RufusJob < ActiveRecord::Base
     self.jid && Rufus::Scheduler.s.job(self.jid)
   end
 
+  def original
+    self.job_instance && self.job_instance.original
+  end
+
+  def last_time
+    self.job_instance && self.job_instance.last_time
+  end
+
+  def scheduled_at
+    self.job_instance && self.job_instance.scheduled_at
+  end
+
   def running?
     self.job_instance && self.job_instance.running?
   end

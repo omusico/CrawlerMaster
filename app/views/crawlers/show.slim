@@ -45,13 +45,12 @@
             th action
 
           - @crawler.rufus_jobs.each do |rfj|
-            - next if rfj.job_instance.nil?
             tr
               td= rfj.id
               td= rfj.jid
-              td= rfj.job_instance.original
-              td= rfj.job_instance.last_time
-              td= rfj.job_instance.scheduled_at
+              td= rfj.original
+              td= rfj.last_time
+              td= rfj.scheduled_at
               td
                 = link_to 'Unschedule', unschedule_job_path(@crawler.organization_code, rfj.id), method: :delete, :class => 'btn btn-mini btn-danger'
 

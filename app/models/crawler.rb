@@ -20,7 +20,7 @@ class Crawler < ActiveRecord::Base
   def run_up(args={})
     SCHEDULE_KEYS.map do |k|
       time_str = self.schedule[k]
-      next if time_str.empty?
+      next if time_str.nil? || time_str.empty?
 
       j = Rufus::Scheduler.s.send(:"schedule_#{k}", time_str) do
         Sidekiq::Client.push(
