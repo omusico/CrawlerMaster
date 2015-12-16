@@ -16,7 +16,8 @@
         tr
           td= index+1
           - org = class_str.match(/(.+?)CourseCrawler/)[1].upcase
+          - crawler = Crawler.find_by(organization_code: org)
           td= link_to class_str, crawler_path(org)
           td= CourseCrawler::Crawlers.find_workers(class_str).count
           td= CourseCrawler::Crawlers.find_queued_jobs(class_str).count
-          td
+          td= (crawler && crawler.courses.last).nil? ? 'not available' : crawler.courses.last.updated_at

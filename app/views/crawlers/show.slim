@@ -26,12 +26,11 @@
           - resource_url = courses_path(organization_code: @crawler.organization_code)
           td= link_to resource_url, resource_url
         tr
-          - courses = Course.where(organization_code: @crawler.organization_code)
           th Resource Count
-          td= courses.count
+          td= @crawler.courses.count
         tr
           th Last Update at
-          td= courses.last.nil? ? 'not available' : courses.last.updated_at
+          td= @crawler.courses.last.nil? ? 'not available' : @crawler.courses.last.updated_at
 
       / Rufus Jobs Table
       h4 Rufus Jobs

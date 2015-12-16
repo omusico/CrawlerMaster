@@ -2,6 +2,7 @@ class Crawler < ActiveRecord::Base
 
   before_create :setup
   has_many :rufus_jobs
+  has_many :courses, foreign_key: :organization_code, primary_key: :organization_code
 
   store :setting, accessors: [ :schedule ]
 
