@@ -57,6 +57,7 @@ gem 'rufus-scheduler', '~> 3.1'
 gem 'unicorn'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+gem 'remote_syslog_logger'
 
 group :development, :test do
     # Call 'byebug' anywhere in the code to stop execution and get a debugger console
